@@ -1,0 +1,13 @@
+#bet-wrapper {
+    background-color: cyan;
+    padding: 2rem;
+    margin: 2rem auto;
+    min-height: 50vh;
+
+    button.ball {
+        width: 2rem;
+        height: 2rem;
+        padding: 0;
+        border-radius: 50%;
+    }
+}

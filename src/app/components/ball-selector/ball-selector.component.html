@@ -1,1 +1,57 @@
-<p>ball-selector works!</p>
+<ng-container *ngIf="!betInfo">
+    <div id="selector-wrapper" class="container">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h4>Numbers</h4>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col" *ngFor="let ball of lotteryDrum">
+                <button type="button" class="btn btn-primary ball" (click)="selectedBall(ball)">
+                    {{ball.idNumber}}
+                </button>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-2">
+                <button type="button" class="btn btn-primary" (click)="clearSelection()">
+                    Clear selection
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-container>
+<ng-container *ngIf="betInfo">
+    <div id="selector-wrapper" class="container text-center">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h4>Result</h4>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-12">
+                <button type="button" class="btn btn-primary ball">
+                    {{betInfo.numberWin}}
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h3 *ngIf="betInfo.isWinner">You Won!!</h3>
+                <h3 *ngIf="!betInfo.isWinner">You Losse!!</h3>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-12">
+                <h4>You profit is: {{betInfo.profit}}€</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <button type="button" class="btn btn-primary" (click)="clearGame()">
+                    Try again!
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-container>

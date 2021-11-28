@@ -1,1 +1,61 @@
-<p>bet-slip works!</p>
+<div id="bet-wrapper" class="container">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h4>Selected Numbers</h4>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-1 col-offset-1" *ngFor="let ball of ballSelection">
+            <button class="btn btn-primary ball">
+                {{ball.idNumber}}
+            </button>
+        </div>
+        <div class="col-12" *ngIf="ballSelection.length === 0">
+            <h5>No ball selected</h5>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-12">
+            <form [formGroup]="betsForm" autocomplete="off">
+                <div class="row no-gutters">
+                    <div class="col-6">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">{{ballSelection.length}}x</span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Bet" aria-label="Bet"
+                                aria-describedby="bet" id="bet" formControlName="bet">
+                            <div class="input-group-append">
+                                <span class="input-group-text">€</span>
+                            </div>
+                            <ng-container *ngIf="betsForm.get('bet').invalid && (betsForm.get('bet').dirty || betsForm.get('bet').touched)">
+                                <div class="invalid-feedback" [ngClass]="{'d-block': betsForm.get('bet').errors.required}">
+                                    Bet is required
+                                </div>
+                                <div class="invalid-feedback" [ngClass]="{'d-block': betsForm.get('bet').errors.minBet}">
+                                    Minimum bet 5€
+                                </div>
+                                <div class="invalid-feedback" [ngClass]="{'d-block': betsForm.get('bet').errors.pattern}">
+                                    Only numbers are allowed
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="col-4 ml-3">
+                        <button type="submit" class="btn btn-primary" (click)="submitBet()" [disabled]="!betsForm.valid || ballSelection.length === 0">Ok</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-12">
+            <h5>Total: {{totalAmount}}€</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-primary" (click)="startBet()" [disabled]="startBetDisable()">Place bet</button>
+        </div>
+    </div>
+</div>
